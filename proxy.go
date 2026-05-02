@@ -75,12 +75,12 @@ var hasPort = regexp.MustCompile(`:\d+$`)
 func copyHeaders(dst, src http.Header, keepDestHeaders bool) {
 	if !keepDestHeaders {
 		for k := range dst {
-			dst.Del(k)
+			delete(dst, k)
 		}
 	}
 	for k, vs := range src {
 		// direct assignment to avoid canonicalization
-		dst[k] = append([]string(nil), vs...)
+		dst[k] = append(dst[k], vs...)
 	}
 }
 
